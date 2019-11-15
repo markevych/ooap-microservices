@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Common.Auth\Common.Auth.csproj" />
+    <ProjectReference Include="..\IdentityService.Persistance\IdentityService.Persistence.csproj" />
+    <ProjectReference Include="..\IdentityService.Services\IdentityService.Services.csproj" />
+  </ItemGroup>
+
+</Project>
