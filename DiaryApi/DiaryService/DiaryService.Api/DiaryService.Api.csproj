@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Common.Auth\Common.Auth.csproj" />
+    <ProjectReference Include="..\..\Common\Common.Persistance\Common.Persistence.csproj" />
+    <ProjectReference Include="..\DiaryService.Servcies\DiaryService.Servcies.csproj" />
+  </ItemGroup>
+
+</Project>
