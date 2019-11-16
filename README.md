@@ -16,25 +16,25 @@ This application is developed using mircroservices approach
 
 # 1) Diary api
 
-# This service is responsible for modifying and obtaining information about students point and apperal on lesson.
-# It implement main CRUD operations for `StudentResults` which represent student achievment on lesson.
+    - This service is responsible for modifying and obtaining information about students point and apperal on lesson.
+    - It implements main CRUD operations for `StudentResults` which represent student achievment on lesson.
 
 # 2) Administration api
 
-# Is the largest part that is responsible for
-# a) formatting new group, updating existing
-# b) adding new Lectures/Teachers/Subjects
-# c) assignig lectures or teachers for specififc group
+### Its the largest part that is responsible for
+    - Formatting new group, updating existing
+    - Adding new Lectures/Teachers/Subjects
+    - Assignig lectures or teachers for specififc group
 
 # 3) Identity service
 
-# This service is responsible for enabling access for specific part of application by generating access-token with information about user and its role.
+    This service is responsible for enabling access for specific part of application by generating access-token with information about user and its role.
 
 # 4) ReportGenerationJob
 
-# Its background task that is triggered by time (In the end of each month). The main gore of this task is to create report in pdf format for each user and send it to appropriate mail address
+    Its background task that is triggered by time (In the end of each month). The main gore of this task is to create report in pdf format for each user and send it to appropriate mail address
 
 
 ## ER diagram
 
-# https://dbdiagram.io/d/5db1756802e6e93440f295c2
+    https://dbdiagram.io/d/5db1756802e6e93440f295c2
