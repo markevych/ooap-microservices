@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using IdentityService.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+
+using Common.Domain.Models;
+using IdentityService.Services.Interfaces;
 
 namespace IdentityService.Api.Controllers
 {
@@ -20,31 +21,6 @@ namespace IdentityService.Api.Controllers
         {
             _logger = logger;
             _userService = userService;
-        }
-
-        [HttpPost("authenticate")]
-        [ProducesResponseType(typeof(AuthenticateResponse), StatusCodes.Status200OK)]
-        public async Task<ActionResult<AuthenticateResponse>> Authenticate([FromBody] AuthenticateRequest request)
-        {
-            var (accessToken, refreshToken) = await _userService.AuthorizeUser(request.Login, request.Password);
-
-            return new AuthenticateResponse
-            {
-                AccessToken = accessToken,
-            };
-        }
-
-        public class AuthenticateRequest
-        {
-            public string Login { get; set; }
-            public string Password { get; set; }
-        }
-
-        public class AuthenticateResponse
-        {
-            public int UserId { get; set; }
-            public string AccessToken { get; set; }
-            public string RefreshToken { get; set; }
         }
 
         [HttpPost]
