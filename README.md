@@ -4,7 +4,7 @@ This is an application that will provide new conveniante and efficient way for e
 
 For students it will bring convenient access for observing their progress and some kind of statistic.
 
-Lectures and teachers have to set students points per lesson. It also allow to monitor all theies groups and their achievents.
+Lectures and teachers have to set students points per lesson. It also allow to monitor all their groups and their achievments.
 
 ## Architecture overview
 
@@ -40,3 +40,15 @@ The main gore of this task is to create report in pdf format for each user and s
 ## ER diagram
 
 https://dbdiagram.io/d/5db1756802e6e93440f295c2
+
+
+# Plan
+
+- [x] Discuss adn agreed concepts and general architecture
+- [x] Initial set up of projects
+- [x] Initial set up of database models
+- [ ] Implement database layer
+- [ ] Set up identity service and configure authentication (Auth 2.0 with JWT)
+- [ ] Set up DiaryAPI service
+- [ ] Set up AdministrationAPI serivce
+- [ ] TO BE CONTINUE...
