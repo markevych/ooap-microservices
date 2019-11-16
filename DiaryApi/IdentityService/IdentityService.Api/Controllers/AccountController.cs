@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Common.Domain.Models;
 using IdentityService.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,12 +10,12 @@ namespace IdentityService.Api.Controllers
 {
     [ApiController]
     [Route("users")]
-    public class UsersController : ControllerBase
+    public class AccountController : ControllerBase
     {
         private readonly ILogger<UsersController> _logger;
         private readonly IUserService _userService;
 
-        public UsersController(
+        public AccountController(
             ILogger<UsersController> logger,
             IUserService userService)
         {
@@ -31,6 +32,8 @@ namespace IdentityService.Api.Controllers
             return new AuthenticateResponse
             {
                 AccessToken = accessToken,
+                // UserId = refreshToken.User.UserId,
+                // RefreshToken = refreshToken.Value
             };
         }
 

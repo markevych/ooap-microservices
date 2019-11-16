@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Common.Auth\Common.Auth.csproj" />
-    <ProjectReference Include="..\DiaryService.Persistance\DiaryService.Persistance.csproj" />
+    <ProjectReference Include="..\..\Common\Common.Persistance\Common.Persistence.csproj" />
     <ProjectReference Include="..\DiaryService.Servcies\DiaryService.Servcies.csproj" />
   </ItemGroup>
 

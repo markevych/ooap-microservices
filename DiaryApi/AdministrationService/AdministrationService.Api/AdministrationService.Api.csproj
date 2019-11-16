@@ -6,8 +6,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Common.Auth\Common.Auth.csproj" />
-    <ProjectReference Include="..\AdministrationService.Persistance\AdministrationService.Persistance.csproj" />
+    <ProjectReference Include="..\..\Common\Common.Persistance\Common.Persistence.csproj" />
     <ProjectReference Include="..\AdministrationService.Servcies\AdministrationService.Servcies.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
