@@ -6,10 +6,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 using Common.Auth;
-using Common.Domain;
+using Common.Domain.Interfaces.Persistence;
+using Common.Persistence.Contexts;
 using Common.Persistence.Repositories;
 using IdentityService.Services.Interfaces;
 using IdentityService.Services.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace IdentityService.Api
 {
@@ -35,11 +37,15 @@ namespace IdentityService.Api
                 options.DescribeAllParametersInCamelCase();
             });
 
+            services.AddDbContext<ApplicationContext>(options => options.UseInMemoryDatabase(databaseName: "ApplicationDb"));
+
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ITokenRepository, TokenRepository>();
+
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddSingleton<ISecurityService, SecurityService>();
+
+            services.AddJwtAuthentication();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +67,7 @@ namespace IdentityService.Api
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

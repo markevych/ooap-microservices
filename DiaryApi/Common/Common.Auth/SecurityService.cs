@@ -21,7 +21,7 @@ namespace Common.Auth
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(AuthenticationExtensions.AuthSecret);
+            var key = Encoding.ASCII.GetBytes(AuthenticationExtensions.AuthSecret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
@@ -45,7 +45,7 @@ namespace Common.Auth
 
         public string DecryptPassword(string passwordHash, string salt)
         {
-            throw new NotImplementedException();
+            return passwordHash;
         }
     }
 }

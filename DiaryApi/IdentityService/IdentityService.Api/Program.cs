@@ -1,5 +1,9 @@
 using System;
+using System.Linq;
+using Common.Domain.Models;
+using Common.Persistence.Contexts;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -12,6 +16,16 @@ namespace IdentityService.Api
         {
             var host = CreateHostBuilder(args).Build();
             var logger = host.Services.GetRequiredService<ILogger<Program>>();
+
+            using (var scope = host.Services.CreateScope())
+            {
+                //3. Get the instance of BoardGamesDBContext in our services layer
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<ApplicationContext>();
+
+                //4. Call the DataGenerator to create sample data
+                DataGenerator.Initialize(services);
+            }
 
             try
             {
@@ -41,5 +55,36 @@ namespace IdentityService.Api
                     logging.AddConsole();
                     logging.AddDebug();
                 });
+    }
+
+    [Obsolete]
+    public class DataGenerator
+    {
+        public static void Initialize(IServiceProvider serviceProvider)
+        {
+            using var context = new ApplicationContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationContext>>());
+            if (context.Users.Any())
+            {
+                return;   // Data was already seeded
+            }
+
+            context.Users.AddRange(
+                new User
+                {
+                    Id = 1,
+                    Email = "klymenkowolodymyr@gmail.com",
+                    FullName = "Volodymyr Klymenko",
+                    PasswordHash = "password"
+                },
+                new User
+                {
+                    Id = 2,
+                    Email = "test@gmail.com",
+                    FullName = "Test Test",
+                    PasswordHash = "password"
+                });
+
+            context.SaveChanges();
+        }
     }
 }

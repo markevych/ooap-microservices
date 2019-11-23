@@ -26,10 +26,10 @@ namespace IdentityService.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateUser([FromBody] CreateUserRequest request)
         {
-            await _userService.RegisterUser(
-                new User
-                {
-                });
+            //await _userService.RegisterUser(
+            //    new User
+            //    {
+            //    });
 
             return Ok();
         }

@@ -1,4 +1,4 @@
-﻿using Common.Domain.Interfaces.Persistance;
+﻿using Common.Domain.Interfaces.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
