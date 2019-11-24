@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using IdentityService.Services.Interfaces;
+﻿using IdentityService.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -31,7 +30,7 @@ namespace IdentityService.Api.Controllers
             {
                 AccessToken = accessToken,
                 UserId = user.Id,
-                // RefreshToken = refreshToken.Value
+                // TO DO RefreshToken = refreshToken.Value
             };
         }
 

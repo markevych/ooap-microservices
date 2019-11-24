@@ -1,5 +1,4 @@
-﻿
-using Common.Domain.Models;
+﻿using Common.Domain.Models;
 
 namespace Common.Domain.Interfaces.Persistence
 {

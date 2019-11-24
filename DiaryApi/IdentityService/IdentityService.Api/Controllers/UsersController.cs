@@ -1,40 +1,60 @@
 ﻿using System;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
+using Common.Domain.Enums;
+using Common.Domain.Interfaces.Security;
 using Common.Domain.Models;
 using IdentityService.Services.Interfaces;
+using IdentityService.Services.Models;
 
 namespace IdentityService.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("users")]
     public class UsersController : ControllerBase
     {
         private readonly ILogger<UsersController> _logger;
         private readonly IUserService _userService;
+        private readonly ISecurityService _securityService;
 
         public UsersController(
             ILogger<UsersController> logger,
-            IUserService userService)
+            IUserService userService,
+            ISecurityService securityService)
         {
             _logger = logger;
             _userService = userService;
+            _securityService = securityService;
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateUser([FromBody] CreateUserRequest request)
+        public ActionResult<int> CreateUser([FromBody] RegisterUserRequest request)
         {
-            //await _userService.RegisterUser(
-            //    new User
-            //    {
-            //    });
+            var userId = _securityService.FetchUserId(HttpContext.User.Claims);
+            if (!IsSuperAdmin(userId))
+            {
+                return new StatusCodeResult(StatusCodes.Status403Forbidden);
+            }
 
-            return Ok();
+            var user = _userService.CreateUser(
+                new User
+                {
+                    FullName = $"{request.UserName} {request.UserSurname}",
+                    Email = request.Email,
+                    PasswordHash = request.Password,
+                    UserRole = request.UserRole
+                },
+                request.UserRole);
+
+            _logger.LogInformation($"New user with id {user.Id} was created");
+
+            return user.Id;
         }
 
-        public class CreateUserRequest
+        public class RegisterUserRequest
         {
             public string UserName { get; set; }
             public string UserSurname { get; set; }
@@ -43,23 +63,101 @@ namespace IdentityService.Api.Controllers
             public UserRole UserRole { get; set; }
         }
 
-        [HttpPut]
-        public ActionResult UpdateUser([FromBody] UpdateUserRequest request)
+        [HttpDelete("{id}")]
+        public ActionResult RemoveUser(int id)
         {
-            throw new NotImplementedException();
+            var userId = _securityService.FetchUserId(HttpContext.User.Claims);
+            if (!IsSuperAdmin(userId))
+            {
+                return new StatusCodeResult(StatusCodes.Status403Forbidden);
+            }
+
+            _userService.RemoveUser(id);
+
+            _logger.LogInformation($"User with id {id} was removed");
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public ActionResult<UserResponse> UpdateUser([FromBody] UpdateUserRequest request)
+        {
+            var userId = _securityService.FetchUserId(HttpContext.User.Claims);
+            if (userId != request.UserId && !IsSuperAdmin(userId))
+            {
+                return new StatusCodeResult(StatusCodes.Status403Forbidden);
+            }
+
+            if (!Enum.TryParse(request.UserRole, out UserRole newRole))
+            {
+                return BadRequest("Cannot parse new user role");
+            }
+
+            var newUser = _userService.UpdateUser(
+                new UpdateUserModel
+                {
+                    UpdaterUserId = request.UserId,
+                    UserId = request.UserId,
+                    NewEmail = request.Email,
+                    NewRole = newRole,
+                    NewName = $"{request.UserName} {request.UserSurname}"
+                });
+
+            _logger.LogInformation($"User with id {request.UserId} was updated");
+
+            return
+                new UserResponse
+                {
+                    UserId = newUser.Id.ToString(),
+                    Email = newUser.Email,
+                    FullName = newUser.FullName,
+                    Role = newUser.UserRole.ToString()
+                };
         }
 
         public class UpdateUserRequest
         {
+            public int UserId { get; set; }
             public string UserName { get; set; }
-            public string Password { get; set; }
+            public string UserSurname { get; set; }
+            public string Email { get; set; }
             public string UserRole { get; set; }
         }
 
-        [HttpDelete]
-        public ActionResult RemoveUser()
+        [HttpGet("{id}")]
+        public ActionResult<UserResponse> GetUser(int id)
         {
-            throw new NotImplementedException();
+            var userId = _securityService.FetchUserId(HttpContext.User.Claims);
+            if (userId != id && !IsSuperAdmin(userId))
+            {
+                return new StatusCodeResult(StatusCodes.Status403Forbidden);
+            }
+
+            var user = _userService.GetUser(id);
+
+            return new UserResponse
+            {
+                UserId = user.Id.ToString(),
+                FullName = user.FullName,
+                Email = user.Email,
+                Role = user.UserRole.ToString()
+            };
+        }
+
+        public class UserResponse
+        {
+            public string UserId { get; set; }
+            public string FullName { get; set; }
+            public string Email { get; set; }
+            public string Role { get; set; }
+        }
+
+        private bool IsSuperAdmin(int id)
+        {
+            // TO DO move super admin credentials in appSettings file
+            var invokeUser = _userService.GetUser(id);
+
+            return invokeUser?.UserRole == UserRole.SuperAdmin;
         }
     }
 }

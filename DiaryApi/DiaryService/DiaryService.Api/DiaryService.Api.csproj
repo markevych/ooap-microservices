@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Common.Auth\Common.Auth.csproj" />
     <ProjectReference Include="..\..\Common\Common.Persistance\Common.Persistence.csproj" />
+    <ProjectReference Include="..\..\Common\Common\Common.Infrastructure.csproj" />
     <ProjectReference Include="..\DiaryService.Servcies\DiaryService.Servcies.csproj" />
   </ItemGroup>
 

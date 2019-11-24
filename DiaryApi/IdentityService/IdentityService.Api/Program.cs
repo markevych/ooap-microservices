@@ -1,12 +1,13 @@
 using System;
 using System.Linq;
-using Common.Domain.Models;
-using Common.Persistence.Contexts;
+using Common.Domain.Enums;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Common.Domain.Models;
+using Common.Persistence.Contexts;
 
 namespace IdentityService.Api
 {
@@ -19,11 +20,9 @@ namespace IdentityService.Api
 
             using (var scope = host.Services.CreateScope())
             {
-                //3. Get the instance of BoardGamesDBContext in our services layer
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<ApplicationContext>();
 
-                //4. Call the DataGenerator to create sample data
                 DataGenerator.Initialize(services);
             }
 
@@ -74,14 +73,24 @@ namespace IdentityService.Api
                     Id = 1,
                     Email = "klymenkowolodymyr@gmail.com",
                     FullName = "Volodymyr Klymenko",
-                    PasswordHash = "password"
+                    PasswordHash = "password",
+                    UserRole = UserRole.Student
                 },
                 new User
                 {
                     Id = 2,
                     Email = "test@gmail.com",
                     FullName = "Test Test",
-                    PasswordHash = "password"
+                    PasswordHash = "password",
+                    UserRole = UserRole.Teacher
+                },
+                new User
+                {
+                    Id = 3,
+                    Email = "markiyan@gmail.com",
+                    FullName = "Mark",
+                    PasswordHash = "1111",
+                    UserRole = UserRole.SuperAdmin
                 });
 
             context.SaveChanges();

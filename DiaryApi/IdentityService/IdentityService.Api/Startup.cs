@@ -1,17 +1,18 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-
 using Common.Auth;
 using Common.Domain.Interfaces.Persistence;
+using Common.Domain.Interfaces.Security;
+using Common.Infrastructure.Swagger;
 using Common.Persistence.Contexts;
 using Common.Persistence.Repositories;
 using IdentityService.Services.Interfaces;
 using IdentityService.Services.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace IdentityService.Api
 {
@@ -29,12 +30,14 @@ namespace IdentityService.Api
         {
             services.AddControllers();
 
+            services.AddMvc();
+
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity Service API", Version = "v1" });
 
-                options.DescribeAllEnumsAsStrings();
                 options.DescribeAllParametersInCamelCase();
+                options.AddJwtBearerSecurityHeaderOptions();
             });
 
             services.AddDbContext<ApplicationContext>(options => options.UseInMemoryDatabase(databaseName: "ApplicationDb"));
@@ -56,6 +59,13 @@ namespace IdentityService.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(c =>
+            {
+                c.AllowAnyHeader();
+                c.AllowAnyMethod();
+                c.AllowAnyOrigin();
+            });
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -66,8 +76,8 @@ namespace IdentityService.Api
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
