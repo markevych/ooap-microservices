@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Domain.Enums;
@@ -8,27 +9,20 @@ using Common.Domain.Models;
 using IdentityService.Services.Interfaces;
 using IdentityService.Services.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace IdentityService.Services.Services
 {
     public class UserService : IUserService
     {
-        private const string ProfileImagesFolder = "UserImages";
-
         private readonly ISecurityService _securityService;
         private readonly IUserRepository _userRepository;
-        private readonly IFileService _fileService;
 
         public UserService(
             ISecurityService securityService,
-            IUserRepository userRepository,
-            IFileService fileService)
+            IUserRepository userRepository)
         {
             _securityService = securityService;
             _userRepository = userRepository;
-            _fileService = fileService;
         }
 
         public (string, User) AuthorizeUser(string login, string password)
@@ -86,7 +80,7 @@ namespace IdentityService.Services.Services
             _userRepository.Remove(user);
         }
 
-        public async Task<User> UpdateUser(UpdateUserModel updateModel, IFormFile newUserImage, IUrlHelper urlHelper)
+        public async Task<User> UpdateUser(UpdateUserModel updateModel)
         {
             var updaterUser = _userRepository.FindById(updateModel.UpdaterUserId);
             if (updaterUser == null)
@@ -105,16 +99,10 @@ namespace IdentityService.Services.Services
                 throw new ArgumentOutOfRangeException("Cannot find user to update");
             }
 
-            var oldImage = user.ImageUrl;
-            var newImage = await GetUserImageFromRequest(newUserImage, ProfileImagesFolder);
-            if (newImage != null)
-            {
-                user.ImageUrl = newImage;
-            }
-
             user.Email = updateModel.NewEmail;
             user.FullName = updateModel.NewName;
             user.UserRole = updateModel.NewRole;
+            user.Image = await GetUserImageFromRequest(updateModel.UserImage);
 
             ValidateUser(user);
 
@@ -126,12 +114,6 @@ namespace IdentityService.Services.Services
                 throw new ArgumentOutOfRangeException("Already used email");
             }
 
-            if (oldImage != null && newImage != null)
-            {
-                _fileService.DeleteFile(oldImage);
-                user.ImageUrl = _fileService.GetValidUrl(urlHelper, user.ImageUrl);
-            }
-
             _userRepository.Update(user);
 
             return user;
@@ -139,7 +121,7 @@ namespace IdentityService.Services.Services
 
         private static void ValidateUser(User user)
         {
-            if (string.IsNullOrWhiteSpace(user.Email)) // add logic for checking email pattern
+            if (string.IsNullOrWhiteSpace(user.Email)) // add logic for checking email regex
             {
                 throw new ArgumentException("Bad formatted email");
             }
@@ -155,16 +137,22 @@ namespace IdentityService.Services.Services
             }
         }
 
-        private async Task<string> GetUserImageFromRequest(IFormFile file, string imagesFolder)
+        private async Task<byte[]> GetUserImageFromRequest(IFormFile formFile)
         {
-            string fileUrl = null;
+            if (formFile == null) return null;
 
-            if (file != null)
+            using var memoryStream = new MemoryStream();
+            await formFile.CopyToAsync(memoryStream);
+
+            // Upload the file if less than 2 MB
+            if (memoryStream.Length < 2097152)
             {
-                fileUrl = await _fileService.UploadFile(imagesFolder, file);
+                return memoryStream.ToArray();
             }
-
-            return fileUrl;
+            else
+            {
+                throw new InvalidOperationException("The file is too large.");
+            }
         }
     }
 }

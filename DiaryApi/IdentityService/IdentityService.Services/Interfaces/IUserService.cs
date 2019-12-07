@@ -2,9 +2,6 @@
 using Common.Domain.Enums;
 using Common.Domain.Models;
 using IdentityService.Services.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace IdentityService.Services.Interfaces
 {
@@ -14,6 +11,6 @@ namespace IdentityService.Services.Interfaces
         User CreateUser(User user, UserRole userRole);
         User GetUser(int id);
         void RemoveUser(int id);
-        Task<User> UpdateUser(UpdateUserModel updateModel, IFormFile newUserImage, IUrlHelper urlHelper);
+        Task<User> UpdateUser(UpdateUserModel updateModel);
     }
 }

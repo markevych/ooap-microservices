@@ -3,5 +3,5 @@ export class ProfileModel {
   fullName: string;
   email: string;
   role: string;
-  userImageUrl: any;
+  userImage: any;
 }

@@ -4,6 +4,5 @@ export class UpdateProfileModel {
   userSurname: string;
   email: string;
   userRole: string;
-  userImageUrl: any;
   userImage?: any;
 }

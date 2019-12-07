@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -102,22 +101,14 @@ namespace IdentityService.Api.Controllers
                     UserId = int.Parse(request.UserId),
                     NewEmail = request.Email,
                     NewRole = newRole,
-                    NewName = $"{request.UserName} {request.UserSurname}"
-                },
-                HttpContext.Request.Form.Files.FirstOrDefault(),
-                Url);
+                    NewName = $"{request.UserName} {request.UserSurname}",
+                    UserImage = request.UserImage
+                });
 
             _logger.LogInformation($"User with id {request.UserId} was updated");
 
             return
-                new UserResponse
-                {
-                    UserId = newUser.Id.ToString(),
-                    Email = newUser.Email,
-                    FullName = newUser.FullName,
-                    Role = newUser.UserRole.ToString(),
-                    UserImageUrl = newUser.ImageUrl
-                };
+                new UserResponse(newUser.Id, newUser.Email, newUser.FullName, newUser.UserRole, GetUserImage(newUser));
         }
 
         public class UpdateUserRequest
@@ -127,6 +118,7 @@ namespace IdentityService.Api.Controllers
             public string UserSurname { get; set; }
             public string Email { get; set; }
             public string UserRole { get; set; }
+            public IFormFile UserImage { get; set; }
         }
 
         [HttpGet("{id}")]
@@ -140,14 +132,8 @@ namespace IdentityService.Api.Controllers
 
             var user = _userService.GetUser(id);
 
-            return new UserResponse
-            {
-                UserId = user.Id.ToString(),
-                FullName = user.FullName,
-                Email = user.Email,
-                Role = user.UserRole.ToString(),
-                UserImageUrl = user.ImageUrl
-            };
+            return
+                new UserResponse(user.Id, user.Email, user.FullName, user.UserRole, GetUserImage(user));
         }
 
         [HttpGet]
@@ -156,25 +142,34 @@ namespace IdentityService.Api.Controllers
             var userId = _securityService.FetchUserId(HttpContext.User.Claims);
             var user = _userService.GetUser(userId);
 
-            return new UserResponse
-            {
-                UserId = user.Id.ToString(),
-                FullName = user.FullName,
-                Email = user.Email,
-                Role = user.UserRole.ToString(),
-                UserImageUrl = user.ImageUrl
-            };
+            return
+                new UserResponse(user.Id, user.Email, user.FullName, user.UserRole, GetUserImage(user));
         }
 
         public class UserResponse
         {
-            public string UserId { get; set; }
+            public int UserId { get; set; }
             public string FullName { get; set; }
             public string Email { get; set; }
-            public string Role { get; set; }
-            public string UserImageUrl { get; set; }
+            public UserRole Role { get; set; }
+            public FileContentResult UserImage { get; set; }
+
+            public UserResponse(int userId, string fullName, string email, UserRole role, FileContentResult image)
+            {
+                UserId = userId;
+                FullName = fullName;
+                Email = email;
+                Role = role;
+                UserImage = image;
+            }
         }
 
+        private FileContentResult GetUserImage(User user)
+        {
+            return user.Image != null
+                ? File(user.Image, "application/octet-stream")
+                : null;
+        }
         private bool IsSuperAdmin(int id)
         {
             // TO DO move super admin credentials in appSettings file

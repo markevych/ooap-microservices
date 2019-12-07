@@ -45,7 +45,6 @@ namespace IdentityService.Api
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ITokenService, TokenService>();
-            services.AddTransient<IFileService, FileService>();
 
             services.AddSingleton<ISecurityService, SecurityService>();
 

@@ -1,4 +1,5 @@
 ﻿using Common.Domain.Enums;
+using Microsoft.AspNetCore.Http;
 
 namespace IdentityService.Services.Models
 {
@@ -9,5 +10,6 @@ namespace IdentityService.Services.Models
         public string NewName { get; set; }
         public string NewEmail { get; set; }
         public UserRole NewRole { get; set; }
+        public IFormFile UserImage { get; set; }
     }
 }

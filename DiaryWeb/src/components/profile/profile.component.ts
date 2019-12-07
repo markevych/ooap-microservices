@@ -112,7 +112,7 @@ export class ProfileComponent implements OnInit {
         const file = event.target.files[0];
 
         const reader = new FileReader();
-        reader.onload = () => this.userModel.userImageUrl = reader.result;
+        reader.onload = () => this.userModel.userImage = reader.result;
         reader.readAsDataURL(file);
 
         this.updateUserModel.userImage = file;
