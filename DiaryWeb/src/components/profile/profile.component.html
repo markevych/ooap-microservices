@@ -1,0 +1,49 @@
+<div class="container profile-container">
+  <div *ngIf="isLoaded" class="user-info">
+    <form *ngIf="isLoaded" [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+      <div class="user-image-container">
+            <div class="image-container">
+              <img [src]=userModel.UserImageUrl />
+            </div>
+            <div class="buttons-container">
+              <button type="button" class="change-btn upload-image">
+                  Select user image
+                <input type="file" class="change-btn" [accept]="inputFileAcceptImageTypes" (change)="uploadNewUserPicture($event)" />
+              </button>
+            </div>
+      </div>
+      <div class="form-label-group"
+           [class.form-label-failed-group]="submitTouched && formErrors.userName">
+        <label>
+          User Name:
+          <input type="text" class="form-control" formControlName="userName">
+          <div *ngIf="submitTouched && formErrors.userName" class="validation-error-text">
+            {{formErrors.userName}}
+          </div>
+        </label>
+      </div>
+      <div class="form-label-group"
+           [class.form-label-failed-group]="submitTouched && formErrors.userMail">
+        <label>
+          User Email:
+          <input type="email" class="form-control" formControlName="userMail">
+          <div *ngIf="submitTouched && formErrors.userMail" class="validation-error-text">
+            {{formErrors.userMail}}
+          </div>
+        </label>
+      </div>
+      <div class="buttons-container">
+        <button type="submit"
+                class="btn btn-secondary navigation-button"
+                [disabled]="submitTouched && !updateForm.valid">
+          Update profile
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="additional-info">
+    <div class="reset-password-container">
+      <app-reset-password></app-reset-password>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -80,10 +82,10 @@ namespace IdentityService.Api.Controllers
         }
 
         [HttpPut]
-        public ActionResult<UserResponse> UpdateUser([FromBody] UpdateUserRequest request)
+        public async Task<ActionResult<UserResponse>> UpdateUser([FromBody] UpdateUserRequest request)
         {
             var userId = _securityService.FetchUserId(HttpContext.User.Claims);
-            if (userId != request.UserId && !IsSuperAdmin(userId))
+            if (userId.ToString() != request.UserId && !IsSuperAdmin(userId))
             {
                 return new StatusCodeResult(StatusCodes.Status403Forbidden);
             }
@@ -93,15 +95,17 @@ namespace IdentityService.Api.Controllers
                 return BadRequest("Cannot parse new user role");
             }
 
-            var newUser = _userService.UpdateUser(
+            var newUser = await _userService.UpdateUser(
                 new UpdateUserModel
                 {
-                    UpdaterUserId = request.UserId,
-                    UserId = request.UserId,
+                    UpdaterUserId = int.Parse(request.UserId),
+                    UserId = int.Parse(request.UserId),
                     NewEmail = request.Email,
                     NewRole = newRole,
                     NewName = $"{request.UserName} {request.UserSurname}"
-                });
+                },
+                HttpContext.Request.Form.Files.FirstOrDefault(),
+                Url);
 
             _logger.LogInformation($"User with id {request.UserId} was updated");
 
@@ -111,13 +115,14 @@ namespace IdentityService.Api.Controllers
                     UserId = newUser.Id.ToString(),
                     Email = newUser.Email,
                     FullName = newUser.FullName,
-                    Role = newUser.UserRole.ToString()
+                    Role = newUser.UserRole.ToString(),
+                    UserImageUrl = newUser.ImageUrl
                 };
         }
 
         public class UpdateUserRequest
         {
-            public int UserId { get; set; }
+            public string UserId { get; set; }
             public string UserName { get; set; }
             public string UserSurname { get; set; }
             public string Email { get; set; }
@@ -140,7 +145,24 @@ namespace IdentityService.Api.Controllers
                 UserId = user.Id.ToString(),
                 FullName = user.FullName,
                 Email = user.Email,
-                Role = user.UserRole.ToString()
+                Role = user.UserRole.ToString(),
+                UserImageUrl = user.ImageUrl
+            };
+        }
+
+        [HttpGet]
+        public ActionResult<UserResponse> GetOwnUser()
+        {
+            var userId = _securityService.FetchUserId(HttpContext.User.Claims);
+            var user = _userService.GetUser(userId);
+
+            return new UserResponse
+            {
+                UserId = user.Id.ToString(),
+                FullName = user.FullName,
+                Email = user.Email,
+                Role = user.UserRole.ToString(),
+                UserImageUrl = user.ImageUrl
             };
         }
 
@@ -150,6 +172,7 @@ namespace IdentityService.Api.Controllers
             public string FullName { get; set; }
             public string Email { get; set; }
             public string Role { get; set; }
+            public string UserImageUrl { get; set; }
         }
 
         private bool IsSuperAdmin(int id)

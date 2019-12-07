@@ -7,6 +7,10 @@ export const ValidatorLengths = {
   phoneNumberMax: 14
 };
 
+export const InputFileAccepts = {
+  imageTypes: '.jpeg,.png,.jpg'
+};
+
 export const CommonRegEx = {
   url: /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*/,
   phoneNumber: /^(\+47)-? *(\d{3})?-? *\d{2}-? *-?\d{3}/,

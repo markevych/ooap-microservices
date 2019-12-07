@@ -8,6 +8,7 @@ namespace Common.Domain.Models
         public string FullName { get; set; }
         public string Email { get; set; }
         public string PasswordHash { get; set; }
+        public string ImageUrl { get; set; }
         public UserRole UserRole { get; set; }
     }
 }

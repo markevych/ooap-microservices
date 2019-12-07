@@ -1,5 +1,5 @@
 export const UserRoles = {
-  Patient:  'Student',
-  Clinician: 'Teacher',
+  Student:  'Student',
+  Teacher: 'Teacher',
   SuperAdmin: 'SuperAdmin'
 };

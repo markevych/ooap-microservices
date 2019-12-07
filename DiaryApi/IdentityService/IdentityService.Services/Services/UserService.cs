@@ -1,25 +1,34 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Common.Domain.Enums;
 using Common.Domain.Interfaces.Persistence;
 using Common.Domain.Interfaces.Security;
 using Common.Domain.Models;
 using IdentityService.Services.Interfaces;
 using IdentityService.Services.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace IdentityService.Services.Services
 {
     public class UserService : IUserService
     {
+        private const string ProfileImagesFolder = "UserImages";
+
         private readonly ISecurityService _securityService;
         private readonly IUserRepository _userRepository;
+        private readonly IFileService _fileService;
 
         public UserService(
             ISecurityService securityService,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            IFileService fileService)
         {
             _securityService = securityService;
             _userRepository = userRepository;
+            _fileService = fileService;
         }
 
         public (string, User) AuthorizeUser(string login, string password)
@@ -77,7 +86,7 @@ namespace IdentityService.Services.Services
             _userRepository.Remove(user);
         }
 
-        public User UpdateUser(UpdateUserModel updateModel)
+        public async Task<User> UpdateUser(UpdateUserModel updateModel, IFormFile newUserImage, IUrlHelper urlHelper)
         {
             var updaterUser = _userRepository.FindById(updateModel.UpdaterUserId);
             if (updaterUser == null)
@@ -96,6 +105,13 @@ namespace IdentityService.Services.Services
                 throw new ArgumentOutOfRangeException("Cannot find user to update");
             }
 
+            var oldImage = user.ImageUrl;
+            var newImage = await GetUserImageFromRequest(newUserImage, ProfileImagesFolder);
+            if (newImage != null)
+            {
+                user.ImageUrl = newImage;
+            }
+
             user.Email = updateModel.NewEmail;
             user.FullName = updateModel.NewName;
             user.UserRole = updateModel.NewRole;
@@ -108,6 +124,12 @@ namespace IdentityService.Services.Services
             if (existingUser != null && existingUser.Email != updateModel.NewEmail)
             {
                 throw new ArgumentOutOfRangeException("Already used email");
+            }
+
+            if (oldImage != null && newImage != null)
+            {
+                _fileService.DeleteFile(oldImage);
+                user.ImageUrl = _fileService.GetValidUrl(urlHelper, user.ImageUrl);
             }
 
             _userRepository.Update(user);
@@ -131,6 +153,18 @@ namespace IdentityService.Services.Services
             {
                 throw new ArgumentOutOfRangeException("Cannot assign super admin role for this user");
             }
+        }
+
+        private async Task<string> GetUserImageFromRequest(IFormFile file, string imagesFolder)
+        {
+            string fileUrl = null;
+
+            if (file != null)
+            {
+                fileUrl = await _fileService.UploadFile(imagesFolder, file);
+            }
+
+            return fileUrl;
         }
     }
 }
