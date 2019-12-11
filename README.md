@@ -41,14 +41,9 @@ The main gore of this task is to create report in pdf format for each user and s
 
 https://dbdiagram.io/d/5db1756802e6e93440f295c2
 
+# Resilince
 
-# Plan
+## CID diagram
 
-- [x] Discuss adn agreed concepts and general architecture
-- [x] Initial set up of projects
-- [x] Initial set up of database models
-- [ ] Implement database layer
-- [ ] Set up identity service and configure authentication (Auth 2.0 with JWT)
-- [ ] Set up DiaryAPI service
-- [ ] Set up AdministrationAPI serivce
-- [ ] TO BE CONTINUE...
+https://drive.google.com/file/d/1bzj3JdcI_JtgyNcvk5UOwBpkzKb-nvr1/view?usp=sharing
+

@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using IdentityService.Services.Interfaces;
+﻿using IdentityService.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -23,15 +22,15 @@ namespace IdentityService.Api.Controllers
 
         [HttpPost("authenticate")]
         [ProducesResponseType(typeof(AuthenticateResponse), StatusCodes.Status200OK)]
-        public async Task<ActionResult<AuthenticateResponse>> Authenticate([FromBody] AuthenticateRequest request)
+        public ActionResult<AuthenticateResponse> Authenticate([FromBody] AuthenticateRequest request)
         {
-            var (accessToken, refreshToken) = await _userService.AuthorizeUser(request.Login, request.Password);
+            var (accessToken, user) = _userService.AuthorizeUser(request.Login, request.Password);
 
             return new AuthenticateResponse
             {
                 AccessToken = accessToken,
-                // UserId = refreshToken.User.UserId,
-                // RefreshToken = refreshToken.Value
+                UserId = user.Id,
+                // TO DO RefreshToken = refreshToken.Value
             };
         }
 

@@ -1,0 +1,22 @@
+<div class="app-container">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+    <a class="navbar-brand" href="#">Your Diary</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li *ngIf="isAuthenticated" class="nav-item">
+          <a class="nav-link" routerLink="/diary">Diary</a>
+        </li>
+        <li *ngIf="isAuthenticated" class="nav-item">
+          <a class="nav-link" routerLink="/subjects">Subjects</a>
+        </li>
+        <li *ngIf="!isAuthenticated" class="nav-item">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li *ngIf="isAuthenticated" class="nav-item nav-auth-item">
+          <a class="nav-link" (click)="logOutUser()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>
+</div>
