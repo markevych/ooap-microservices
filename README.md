@@ -45,5 +45,7 @@ https://dbdiagram.io/d/5db1756802e6e93440f295c2
 
 ## CID diagram
 
+![GitHub Logo](/images/cid-diagram.png)
+
 https://drive.google.com/file/d/1bzj3JdcI_JtgyNcvk5UOwBpkzKb-nvr1/view?usp=sharing
 
