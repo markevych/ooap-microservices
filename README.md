@@ -7,7 +7,9 @@ For students it will bring convenient access for observing their progress and so
 Lectures and teachers have to set students points per lesson. It also allow to monitor all their groups and their achievments.
 
 # Architecture overview
+
 ![GitHub Logo](/images/app-architecture.png)
+
 https://drive.google.com/file/d/1mc0QvR5uPW-jcwpXSbU4kUExXFeqkiGu/view
 
 ## Main components
@@ -36,17 +38,22 @@ The main gore of this task is to create report in pdf format for each user and s
 
 
 ## ER diagram
+
 https://dbdiagram.io/d/5db1756802e6e93440f295c2
+
 ![GitHub Logo](/images/er-diagram.png)
 
 ## Resilince
+
 ### RMA workbook
 
 ID | Component/dependency interaction | Interaction description
 ------------ | ------------- | -------------
 *** | *** | ***
 *** | *** | ***
-### CID diagram
-https://drive.google.com/file/d/1bzj3JdcI_JtgyNcvk5UOwBpkzKb-nvr1/view?usp=sharing
-![GitHub Logo](/images/CID-diagram.png)
 
+### CID diagram
+
+https://drive.google.com/file/d/1bzj3JdcI_JtgyNcvk5UOwBpkzKb-nvr1/view?usp=sharing
+
+![GitHub Logo](/images/CID-diagram.png)
