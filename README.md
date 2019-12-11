@@ -41,6 +41,8 @@ The main gore of this task is to create report in pdf format for each user and s
 
 https://dbdiagram.io/d/5db1756802e6e93440f295c2
 
+![GitHub Logo](/images/er-diagram.png)
+
 ## Resilince
 
 ### CID diagram
