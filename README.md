@@ -6,32 +6,32 @@ For students it will bring convenient access for observing their progress and so
 
 Lectures and teachers have to set students points per lesson. It also allow to monitor all their groups and their achievments.
 
-## Architecture overview
+# Architecture overview
 
 ![GitHub Logo](/images/app-architecture.png)
 
 https://drive.google.com/file/d/1mc0QvR5uPW-jcwpXSbU4kUExXFeqkiGu/view
 
-# Main components
+## Main components
 
-# 1) Diary api
+### 1) Diary api
 
 This service is responsible for modifying and obtaining information about students point and apperal on lesson.
 
 It implements main CRUD operations for `StudentResults` which represent student achievment on lesson.
 
-# 2) Administration api
+### 2) Administration api
 
-### Its the largest part that is responsible for
+#### Its the largest part that is responsible for
 - Formatting new group, updating existing
 - Adding new Lectures/Teachers/Subjects
 - Assignig lectures or teachers for specififc group
 
-# 3) Identity service
+### 3) Identity service
 
 This service is responsible for enabling access for specific part of application by generating access-token with information about user and its role.
 
-# 4) ReportGenerationJob
+### 4) ReportGenerationJob
 
 Its background task that is triggered by time (In the end of each month).
 The main gore of this task is to create report in pdf format for each user and send it to appropriate mail address
@@ -41,9 +41,9 @@ The main gore of this task is to create report in pdf format for each user and s
 
 https://dbdiagram.io/d/5db1756802e6e93440f295c2
 
-# Resilince
+## Resilince
 
-## CID diagram
+### CID diagram
 
 ![GitHub Logo](/images/CID-diagram.png)
 
