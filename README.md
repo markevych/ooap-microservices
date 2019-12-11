@@ -8,9 +8,9 @@ Lectures and teachers have to set students points per lesson. It also allow to m
 
 ## Architecture overview
 
-General architecture: https://drive.google.com/file/d/1mc0QvR5uPW-jcwpXSbU4kUExXFeqkiGu/view
+![GitHub Logo](/images/architecture.png)
 
-This application is developed using mircroservices approach
+https://drive.google.com/file/d/1mc0QvR5uPW-jcwpXSbU4kUExXFeqkiGu/view
 
 # Main components
 
@@ -44,6 +44,8 @@ https://dbdiagram.io/d/5db1756802e6e93440f295c2
 # Resilince
 
 ## CID diagram
+
+![GitHub Logo](/images/CID diagram.png)
 
 https://drive.google.com/file/d/1bzj3JdcI_JtgyNcvk5UOwBpkzKb-nvr1/view?usp=sharing
 
