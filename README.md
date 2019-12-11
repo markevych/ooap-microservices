@@ -8,7 +8,7 @@ Lectures and teachers have to set students points per lesson. It also allow to m
 
 ## Architecture overview
 
-![GitHub Logo](/images/architecture.png)
+![GitHub Logo](/images/app-architecture.png)
 
 https://drive.google.com/file/d/1mc0QvR5uPW-jcwpXSbU4kUExXFeqkiGu/view
 
