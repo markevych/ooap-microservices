@@ -1,4 +1,4 @@
-﻿using Common.Domain.Interfaces.Persistance;
+﻿using Common.Domain.Interfaces.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -34,10 +34,12 @@ namespace Common.Persistence.Repositories
             return this.dbSet.Find(id);
         }
 
-        public void Create(TEntity item)
+        public TEntity Create(TEntity item)
         {
             this.dbSet.Add(item);
             this.context.SaveChanges();
+
+            return item;
         }
 
         public void Update(TEntity item)
