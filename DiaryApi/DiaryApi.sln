@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Persistence", "Commo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiaryFunctions", "DiaryFunctions\DiaryFunctions.csproj", "{FB3AA0E0-BFF3-4386-BA65-CBC74C36061D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Infrastructure", "Common\Common\Common.Infrastructure.csproj", "{3ED106DD-C231-4365-8CF7-5574BBCCDB2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{FB3AA0E0-BFF3-4386-BA65-CBC74C36061D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB3AA0E0-BFF3-4386-BA65-CBC74C36061D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB3AA0E0-BFF3-4386-BA65-CBC74C36061D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ED106DD-C231-4365-8CF7-5574BBCCDB2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ED106DD-C231-4365-8CF7-5574BBCCDB2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ED106DD-C231-4365-8CF7-5574BBCCDB2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ED106DD-C231-4365-8CF7-5574BBCCDB2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +100,7 @@ Global
 		{3F3D6A44-492B-4406-8C43-EDF0C6F4DAB1} = {3AA1D28A-D724-469C-B40F-FB8BAD725CED}
 		{110DBE48-7E0E-4728-85EB-46F1E4CF3E1D} = {3AA1D28A-D724-469C-B40F-FB8BAD725CED}
 		{FB3AA0E0-BFF3-4386-BA65-CBC74C36061D} = {79371065-215E-4009-8DC8-9DEB440EB3B2}
+		{3ED106DD-C231-4365-8CF7-5574BBCCDB2B} = {3AA1D28A-D724-469C-B40F-FB8BAD725CED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {02E1B05D-1DC7-4894-A9D5-FEAF03301B8C}

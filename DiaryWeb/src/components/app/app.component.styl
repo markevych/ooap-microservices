@@ -1,0 +1,74 @@
+.app-container
+    min-height 100%
+    background-color #f5f5f5
+    .user-info
+        color #ffffff
+        font-size 1.5em
+
+.nav-link
+    cursor pointer
+
+.nav-auth-item
+    position absolute
+    right 20px
+
+::ng-deep
+    body
+        .ui-toolbar
+            background transparent
+            border none
+            min-width 100px
+    .ng-trigger-tabContent
+        position absolute
+        right 0px
+        min-width 400px
+        max-height 400px
+        overflow auto
+    body
+        .ui-accordion .ui-accordion-content
+            background-color transparent
+            border none
+
+.list-group
+    background-color #ffffff
+    border-radius 5px
+
+.list-group-item
+    display flex
+    padding-left 0
+    background-color rgba(200, 200, 200, 0.1)
+    .read-state-container
+        display flex
+        align-self center
+        margin 0 10px
+        .pi-circle-off
+            cursor pointer
+    .main-part
+        display flex
+        flex-direction column
+        width 100%
+        .additional-info
+            display flex
+            .data-info
+                display flex
+                flex-basis 50%
+                font-size .7em
+            .author-info
+                display flex
+                flex-shrink 1
+                flex-basis 50%
+                justify-content flex-end
+                font-size .9em
+            .notification-container
+                padding 0 1em
+            .remove-notification-container
+                padding-left 1em
+                font-size 1.1em
+                cursor pointer
+
+.list-group-upload
+    justify-content center
+    cursor pointer
+
+.unread-list-item
+    background-color rgba(0, 0, 0, 0.1)
