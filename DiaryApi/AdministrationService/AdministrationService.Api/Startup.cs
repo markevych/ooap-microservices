@@ -5,6 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using Common.Persistence.Repositories;
+using Common.Persistence.Models;
+using Common.Domain.Interfaces.Persistance;
+using AdministrationService.Service.Interfaces;
+using AdministrationService.Service.Services;
+
 namespace AdministrationService.Api
 {
     public class Startup
@@ -21,6 +27,9 @@ namespace AdministrationService.Api
         {
             services.AddControllers();
 
+            services.AddTransient<IRepository<Group>, GroupRepository>();
+            services.AddTransient<IRepository<Subject>, SubjectRepository>();
+            services.AddTransient<IAdministationDiaryService, AdministrationDiaryService>();
             services.AddJwtAuthentication();
         }
 

@@ -14,5 +14,21 @@ namespace Common.Persistence.Contexts
         public DbSet<TeacherSubject> TeacherSubjects { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<GroupSubject>()
+                .HasKey(g => new { g.GroupId, g.SubjectId });
+
+            modelBuilder.Entity<GroupSubject>()
+                .HasOne(gs => gs.Subject)
+                .WithMany(s => s.GroupSubject)
+                .HasForeignKey(gs => gs.SubjectId);
+
+            modelBuilder.Entity<GroupSubject>()
+                .HasOne(gs => gs.Group)
+                .WithMany(s => s.GroupSubject)
+                .HasForeignKey(gs => gs.GroupId);
+        }
     }
 }

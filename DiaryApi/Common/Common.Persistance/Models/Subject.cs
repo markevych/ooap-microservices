@@ -1,9 +1,14 @@
-﻿namespace Common.Persistence.Models
+﻿using System.Collections.Generic;
+
+namespace Common.Persistence.Models
 {
     public class Subject
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+
+        public List<Group> Groups { get; set; }
+        public List<GroupSubject> GroupSubject { get; set; }
     }
 }
