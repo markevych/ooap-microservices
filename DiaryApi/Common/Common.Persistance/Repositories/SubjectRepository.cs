@@ -1,11 +1,11 @@
-﻿using Common.Domain.Interfaces.Persistance;
+﻿using Common.Domain.Interfaces.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-using Common.Persistence.Models;
+using Common.Domain.Models;
 using Common.Persistence.Contexts;
 
 namespace Common.Persistence.Repositories
@@ -36,10 +36,11 @@ namespace Common.Persistence.Repositories
             return this.dbSet.Find(id);
         }
 
-        public void Create(Subject item)
+        public Subject Create(Subject item)
         {
             this.dbSet.Add(item);
             this.context.SaveChanges();
+            return item;
         }
 
         public void Update(Subject item)

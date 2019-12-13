@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 
 using Common.Domain.Models;
-using Common.Persistence.Models;
 using Common.Persistence.Repositories;
 
 
-namespace AdministrationService.Service.Interfaces
+namespace AdministrationService.Services.Interfaces
 {
     public interface IAdministationDiaryService
     {

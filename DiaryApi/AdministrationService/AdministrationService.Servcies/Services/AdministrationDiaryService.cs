@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-using Common.Domain.Interfaces.Persistance;
-using Common.Persistence.Models;
-using AdministrationService.Service.Interfaces;
+using Common.Domain.Interfaces.Persistence;
+using Common.Domain.Models;
+using AdministrationService.Services.Interfaces;
 
 
-namespace AdministrationService.Service.Services
+namespace AdministrationService.Services.Services
 {
     public class AdministrationDiaryService : IAdministationDiaryService
     {
