@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -8,7 +8,6 @@
     <ProjectReference Include="..\..\Common\Common.Auth\Common.Auth.csproj" />
     <ProjectReference Include="..\..\Common\Common.Persistance\Common.Persistence.csproj" />
     <ProjectReference Include="..\..\Common\Common\Common.Infrastructure.csproj" />
-    <ProjectReference Include="..\AdministrationService.Servcies\AdministrationService.Servcies.csproj" />
     <ProjectReference Include="..\AdministrationService.Servcies\AdministrationService.Services.csproj" />
   </ItemGroup>
 
