@@ -12,6 +12,8 @@ using Common.Domain.Models;
 using Common.Domain.Interfaces.Persistence;
 using AdministrationService.Services.Interfaces;
 using AdministrationService.Services.Services;
+using Common.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdministrationService.Api
 {
@@ -36,6 +38,9 @@ namespace AdministrationService.Api
                 options.AddJwtBearerSecurityHeaderOptions();
                 options.DescribeAllParametersInCamelCase();
             });
+
+            services.AddDbContext<ApplicationContext>(options => options.UseInMemoryDatabase(databaseName: "ApplicationDb"));
+
             services.AddTransient<IRepository<Group>, GroupRepository>();
             services.AddTransient<IRepository<Subject>, SubjectRepository>();
             services.AddTransient<IAdministationDiaryService, AdministrationDiaryService>();
