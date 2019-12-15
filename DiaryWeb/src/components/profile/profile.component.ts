@@ -16,13 +16,13 @@ import { InputFileAccepts } from 'src/core/utilities/common-constants';
 })
 export class ProfileComponent implements OnInit {
   public userModel: ProfileModel;
-  public updateUserModel = new UpdateProfileModel();
   public userRole: string;
   public isLoaded = false;
   public formErrors: any = {};
   public submitTouched = false;
   public updateForm: FormGroup;
   public inputFileAcceptImageTypes: string;
+  private updateUserModel = new UpdateProfileModel();
 
   constructor(
     private profileService: ProfileService,
@@ -90,7 +90,7 @@ export class ProfileComponent implements OnInit {
     this.updateUserModel.userName = values.userName.split(' ')[0];
     this.updateUserModel.userSurname = values.userName.split(' ')[1];
     this.updateUserModel.userId = this.userModel.userId;
-    this.updateUserModel.userRole = this.userModel.role;
+    this.updateUserModel.userRole = this.userModel.role.toString();
   }
 
   private updateProfile(): void {

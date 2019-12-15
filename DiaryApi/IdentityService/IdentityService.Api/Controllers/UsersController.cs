@@ -84,7 +84,7 @@ namespace IdentityService.Api.Controllers
         public async Task<ActionResult<UserResponse>> UpdateUser([FromBody] UpdateUserRequest request)
         {
             var userId = _securityService.FetchUserId(HttpContext.User.Claims);
-            if (userId.ToString() != request.UserId && !IsSuperAdmin(userId))
+            if (userId != request.UserId && !IsSuperAdmin(userId))
             {
                 return new StatusCodeResult(StatusCodes.Status403Forbidden);
             }
@@ -97,8 +97,8 @@ namespace IdentityService.Api.Controllers
             var newUser = await _userService.UpdateUser(
                 new UpdateUserModel
                 {
-                    UpdaterUserId = int.Parse(request.UserId),
-                    UserId = int.Parse(request.UserId),
+                    UpdaterUserId = request.UserId,
+                    UserId = request.UserId,
                     NewEmail = request.Email,
                     NewRole = newRole,
                     NewName = $"{request.UserName} {request.UserSurname}",
@@ -108,12 +108,12 @@ namespace IdentityService.Api.Controllers
             _logger.LogInformation($"User with id {request.UserId} was updated");
 
             return
-                new UserResponse(newUser.Id, newUser.Email, newUser.FullName, newUser.UserRole, GetUserImage(newUser));
+                new UserResponse(newUser.Id, newUser.FullName, newUser.Email, newUser.UserRole, GetUserImage(newUser));
         }
 
         public class UpdateUserRequest
         {
-            public string UserId { get; set; }
+            public int UserId { get; set; }
             public string UserName { get; set; }
             public string UserSurname { get; set; }
             public string Email { get; set; }
@@ -133,7 +133,7 @@ namespace IdentityService.Api.Controllers
             var user = _userService.GetUser(id);
 
             return
-                new UserResponse(user.Id, user.Email, user.FullName, user.UserRole, GetUserImage(user));
+                new UserResponse(user.Id, user.FullName, user.Email, user.UserRole, GetUserImage(user));
         }
 
         [HttpGet]
@@ -143,7 +143,7 @@ namespace IdentityService.Api.Controllers
             var user = _userService.GetUser(userId);
 
             return
-                new UserResponse(user.Id, user.Email, user.FullName, user.UserRole, GetUserImage(user));
+                new UserResponse(user.Id, user.FullName, user.Email, user.UserRole, GetUserImage(user));
         }
 
         public class UserResponse
