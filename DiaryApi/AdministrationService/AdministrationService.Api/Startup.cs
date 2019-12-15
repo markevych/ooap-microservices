@@ -4,8 +4,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+
 using Common.Auth;
 using Common.Infrastructure.Swagger;
+using Common.Persistence.Repositories;
+using Common.Domain.Models;
+using Common.Domain.Interfaces.Persistence;
+using AdministrationService.Services.Interfaces;
+using AdministrationService.Services.Services;
+using Common.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdministrationService.Api
 {
@@ -30,6 +38,12 @@ namespace AdministrationService.Api
                 options.AddJwtBearerSecurityHeaderOptions();
                 options.DescribeAllParametersInCamelCase();
             });
+
+            services.AddDbContext<ApplicationContext>(options => options.UseInMemoryDatabase(databaseName: "ApplicationDb"));
+
+            services.AddTransient<IRepository<Group>, GroupRepository>();
+            services.AddTransient<IRepository<Subject>, SubjectRepository>();
+            services.AddTransient<IAdministationDiaryService, AdministrationDiaryService>();
 
             services.AddJwtAuthentication();
         }

@@ -6,49 +6,74 @@ For students it will bring convenient access for observing their progress and so
 
 Lectures and teachers have to set students points per lesson. It also allow to monitor all their groups and their achievments.
 
-## Architecture overview
+# Architecture overview
 
-General architecture: https://drive.google.com/file/d/1mc0QvR5uPW-jcwpXSbU4kUExXFeqkiGu/view
+![GitHub Logo](/images/app-architecture.png)
 
-This application is developed using mircroservices approach
+https://drive.google.com/file/d/1mc0QvR5uPW-jcwpXSbU4kUExXFeqkiGu/view
 
-# Main components
+## Main components
 
-# 1) Diary api
+### 1) Diary api
 
 This service is responsible for modifying and obtaining information about students point and apperal on lesson.
 
 It implements main CRUD operations for `StudentResults` which represent student achievment on lesson.
 
-# 2) Administration api
+### 2) Administration api
 
-### Its the largest part that is responsible for
+#### Its the largest part that is responsible for
 - Formatting new group, updating existing
 - Adding new Lectures/Teachers/Subjects
 - Assignig lectures or teachers for specififc group
 
-# 3) Identity service
+### 3) Identity service
 
 This service is responsible for enabling access for specific part of application by generating access-token with information about user and its role.
 
-# 4) ReportGenerationJob
+### 4) ReportGenerationJob
 
 Its background task that is triggered by time (In the end of each month).
 The main gore of this task is to create report in pdf format for each user and send it to appropriate mail address
 
 
-## ER diagram
+## Database
 
-https://dbdiagram.io/d/5db1756802e6e93440f295c2
+As data storage will be used Azure sql database (that provide convenient way to configure this and other important stuff like authentication and failover)
 
+### ER diagram
+###### (https://dbdiagram.io/d/5db1756802e6e93440f295c2)
 
-# Plan
+![GitHub Logo](/images/er-diagram.png)
 
-- [x] Discuss adn agreed concepts and general architecture
-- [x] Initial set up of projects
-- [x] Initial set up of database models
-- [ ] Implement database layer
-- [ ] Set up identity service and configure authentication (Auth 2.0 with JWT)
-- [ ] Set up DiaryAPI service
-- [ ] Set up AdministrationAPI serivce
-- [ ] TO BE CONTINUE...
+## Resilince
+
+### RMA workbook
+
+ID | Component/dependency interaction | Interaction description
+------------ | ------------- | -------------
+0 | Internet client -> Angular Application | End user connect with angular web application via intenrnet 
+1 | User angular client -> Identity service | User send http authorize endpoint from angular application to get OAuth access token
+2 | Identity service -> Sql database | Identity service communicate with Azure SQL Database to check user credentials
+3 | User angular client -> Diary API service | User send http endpoint with access token from angular application to get/update information about students activity
+4 | Diary API service -> Sql database | Diary api service communicate with Azure SQL Database to obtain data about students activities
+5 | Admin User angular client -> Identity service | Administrator user trigger authorize endpoint from angular application to get OAuth access token
+6 | Admin User angular client -> Administartion api service | Administrator user send request to crud endpoints with access token to get/update user/group information
+7 | Administartion api service -> Sql database | Administration api service communicate with Azure sql database to get/update data there
+8 | Notification function -> Sql database | Time triggered notification function communicate with Azure sql databse to get students activity information
+9 | Notification function -> Send grid (external) | Time triggered notification function communicate with external SendGrid service to send emails to end users 
+
+### CID diagram
+
+https://drive.google.com/file/d/1bzj3JdcI_JtgyNcvk5UOwBpkzKb-nvr1/view?usp=sharing
+
+![GitHub Logo](/images/CID-diagram.png)
+
+### Security model
+
+![GitHub Logo](/images/security-model.png)
+
+### Hosted Service
+
+...IN PROGRESS...
+(Application will be deployed to Azure hosting service, UI-part (angular app) will be hosted in Firebase cloud)

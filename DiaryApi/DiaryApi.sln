@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiaryService.Servcies", "Di
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdministrationService.Api", "AdministrationService\AdministrationService.Api\AdministrationService.Api.csproj", "{E46328D3-38CC-4B36-922B-FE265CD884F8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdministrationService.Servcies", "AdministrationService\AdministrationService.Servcies\AdministrationService.Servcies.csproj", "{67DA8788-7F64-4B11-9D94-90725DB11260}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdministrationService.Services", "AdministrationService\AdministrationService.Servcies\AdministrationService.Services.csproj", "{67DA8788-7F64-4B11-9D94-90725DB11260}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Functions", "4 - Functions", "{79371065-215E-4009-8DC8-9DEB440EB3B2}"
 EndProject
@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Persistence", "Commo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiaryFunctions", "DiaryFunctions\DiaryFunctions.csproj", "{FB3AA0E0-BFF3-4386-BA65-CBC74C36061D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Infrastructure", "Common\Common\Common.Infrastructure.csproj", "{3ED106DD-C231-4365-8CF7-5574BBCCDB2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Infrastructure", "Common\Common\Common.Infrastructure.csproj", "{3ED106DD-C231-4365-8CF7-5574BBCCDB2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
