@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "8.11.4"
+branches:
+  only:
+    - master
+before_install:
+  - cd DiaryWeb
+script:
+  - ng lint
+  - ng build --prod
+install:
+  - npm install --save-dev @angular-devkit/build-angular
+  - npm install -g @angular/cli
+  - npm install -g firebase-tools
+after_success:
+  - firebase use default
+  - firebase deploy --token 1/gZZjbfzz7vjcb8vgm8pUqz1nOXeDasBcT_NsxDsnQBU

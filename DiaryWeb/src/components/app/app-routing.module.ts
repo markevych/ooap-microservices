@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'test',
-    loadChildren: '../test/test.module#TestModule',
+    loadChildren: '../results/results.module#ResultsModule',
     canActivate: [AuthGuard]
   },
   {
