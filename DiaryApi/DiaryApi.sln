@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Common", "0 - Common", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiaryService.Api", "DiaryService\DiaryService.Api\DiaryService.Api.csproj", "{A86F76C4-0A7A-4826-B44F-E986B6AC4D5B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiaryService.Servcies", "DiaryService\DiaryService.Servcies\DiaryService.Servcies.csproj", "{3BDB1E74-8E55-4831-ADFC-084BB5927116}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiaryService.Services", "DiaryService\DiaryService.Servcies\DiaryService.Services.csproj", "{3BDB1E74-8E55-4831-ADFC-084BB5927116}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdministrationService.Api", "AdministrationService\AdministrationService.Api\AdministrationService.Api.csproj", "{E46328D3-38CC-4B36-922B-FE265CD884F8}"
 EndProject

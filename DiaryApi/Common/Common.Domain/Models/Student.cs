@@ -1,4 +1,6 @@
-﻿namespace Common.Domain.Models
+﻿using System.Collections.Generic;
+
+namespace Common.Domain.Models
 {
     public class Student
     {
@@ -8,5 +10,6 @@
         public Group Group { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
+        public List<StudentResult> StudentResults { get; set; }
     }
 }

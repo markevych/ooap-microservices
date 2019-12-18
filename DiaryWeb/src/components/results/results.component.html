@@ -7,7 +7,7 @@
             <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
         </div>
         <div class="ui-g-12">
-            <p-table [value]="cars">
+            <p-table [value]="results">
                 <ng-template pTemplate="header">
                     <tr>
                         <th *ngFor="let key of carItems">{{key}}</th>

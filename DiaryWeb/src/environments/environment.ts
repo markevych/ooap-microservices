@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   identityServerUrl: "https://localhost:5001",
-  diaryApi: "",
+  diaryApi: "http://localhost:61324",
   adminApi: ""
 };
 

@@ -10,5 +10,7 @@ namespace Common.Domain.Models
         public string PasswordHash { get; set; }
         public byte[] Image { get; set; }
         public UserRole UserRole { get; set; }
+        public Student Student { get; set; }
+        public Teacher Teacher { get; set; }
     }
 }

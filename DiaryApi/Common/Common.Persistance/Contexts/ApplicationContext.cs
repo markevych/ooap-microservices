@@ -10,42 +10,74 @@ namespace Common.Persistence.Contexts
         { }
 
         public DbSet<Group> Groups { get; set; }
-        public DbSet<GroupSubject> GroupSubjects { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<StudentResult> StudentResults { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<TeacherSubject> TeacherSubjects { get; set; }
-        public DbSet<Topic> Topics { get; set; }
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<GroupSubject>()
-                .HasKey(g => new { g.GroupId, g.SubjectId });
-
-            modelBuilder.Entity<GroupSubject>()
-                .HasOne(gs => gs.Subject)
-                .WithMany(s => s.GroupSubject)
-                .HasForeignKey(gs => gs.SubjectId);
-
-            modelBuilder.Entity<GroupSubject>()
-                .HasOne(gs => gs.Group)
-                .WithMany(s => s.GroupSubject)
-                .HasForeignKey(gs => gs.GroupId);
+            modelBuilder.Entity<Group>()
+                .HasMany<TeacherSubject>(g => g.TeacherSubjects)
+                .WithOne(ts => ts.Group)
+                .HasForeignKey(ts => ts.GroupId);
 
             modelBuilder.Entity<Group>()
-                .HasMany(g => g.GroupSubject)
-                .WithOne(gs => gs.Group)
-                .HasForeignKey(gr => gr.GroupId);
+                .HasMany<Student>(g => g.Students)
+                .WithOne(s => s.Group)
+                .HasForeignKey(s => s.GroupId);
+
+            modelBuilder.Entity<Student>()
+                .HasOne(s => s.Group)
+                .WithMany(g => g.Students)
+                .HasForeignKey(s => s.GroupId);
+
+            modelBuilder.Entity<Student>()
+                .HasMany<StudentResult>(sr => sr.StudentResults)
+                .WithOne(s => s.Student)
+                .HasForeignKey(sr => sr.StudentId);
+
+            modelBuilder.Entity<StudentResult>()
+                .HasOne<TeacherSubject>(sr => sr.TeacherSubject)
+                .WithMany(ts => ts.StudentResults)
+                .HasForeignKey(sr => sr.TeacherSubjectId);
+
+            modelBuilder.Entity<StudentResult>()
+                .HasOne<Student>(sr => sr.Student)
+                .WithMany(s => s.StudentResults)
+                .HasForeignKey(sr => sr.StudentId);
 
             modelBuilder.Entity<Subject>()
-                .HasMany(s => s.GroupSubject)
-                .WithOne(gs => gs.Subject)
-                .HasForeignKey(gs => gs.SubjectId);
+                .HasMany(s => s.TeacherSubjects)
+                .WithOne(ts => ts.Subject)
+                .HasForeignKey(ts => ts.SubjectId);
+
+            modelBuilder.Entity<Teacher>()
+                .HasMany(s => s.TeacherSubjects)
+                .WithOne(ts => ts.Teacher)
+                .HasForeignKey(ts => ts.TeacherId);
 
             modelBuilder.Entity<TeacherSubject>()
-                .HasKey(ts => new { ts.SubjectId, ts.TeacherId });
+                .HasMany(ts => ts.StudentResults)
+                .WithOne(sr => sr.TeacherSubject)
+                .HasForeignKey(sr => sr.TeacherSubjectId);
+
+            modelBuilder.Entity<TeacherSubject>()
+                .HasOne<Group>(ts => ts.Group)
+                .WithMany(g => g.TeacherSubjects)
+                .HasForeignKey(ts => ts.GroupId);
+
+            modelBuilder.Entity<TeacherSubject>()
+                .HasOne<Teacher>(ts => ts.Teacher)
+                .WithMany(t => t.TeacherSubjects)
+                .HasForeignKey(ts => ts.TeacherId);
+
+            modelBuilder.Entity<TeacherSubject>()
+                .HasOne<Subject>(ts => ts.Subject)
+                .WithMany(t => t.TeacherSubjects)
+                .HasForeignKey(s => s.SubjectId);
         }
     }
 }

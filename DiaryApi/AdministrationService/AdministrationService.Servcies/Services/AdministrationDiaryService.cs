@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 using Common.Domain.Interfaces.Persistence;
 using Common.Domain.Models;
@@ -9,25 +8,39 @@ using AdministrationService.Services.Interfaces;
 
 namespace AdministrationService.Services.Services
 {
-    public class AdministrationDiaryService : IAdministationDiaryService
+    public class AdministrationDiaryService : IAdministrationDiaryService
     {
-        private readonly IRepository<Group> _groupRepository;
-        private readonly IRepository<Subject> _subjectRepository;
+        private readonly IGroupRepository _groupRepository;
+        private readonly ISubjectRepository _subjectRepository;
+        private readonly ITeacherRepository _teacherRepository;
 
-        public AdministrationDiaryService(IRepository<Group> groupRepository, IRepository<Subject> subjectRepository)
+        public AdministrationDiaryService(
+            IGroupRepository groupRepository,
+            ISubjectRepository subjectRepository,
+            ITeacherRepository teacherRepository)
         {
             _groupRepository = groupRepository;
             _subjectRepository = subjectRepository;
+            _teacherRepository = teacherRepository;
         }
 
-        public void CreateSubjectForGroup(int groupId, Subject subject)
+        public void CreateSubjectForGroup(int groupId, int subjectId, int teacherId)
         {
+            var subject = _subjectRepository.FindById(subjectId);
+            if (subject == null)
+                throw new ArgumentOutOfRangeException();
+
+            var teacher = _teacherRepository.FindById(subjectId);
+            if (teacher == null)
+                throw new ArgumentOutOfRangeException();
+
             var group = _groupRepository.FindById(groupId);
-            if (group.Subjects == null)
+            if (group.TeacherSubjects == null)
             {
-                group.Subjects = new List<Subject>();
+                group.TeacherSubjects = new List<TeacherSubject>();
             }
-            group.Subjects.Add(subject);
+
+            group.TeacherSubjects.Add(new TeacherSubject{TeacherId = teacherId, SubjectId = subjectId, GroupId = groupId});
             _groupRepository.Update(group);
         }
         public void RemoveSubject(int subjectId)

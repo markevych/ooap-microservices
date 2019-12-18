@@ -4,16 +4,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
 
+using AdministrationService.Services.Interfaces;
+using AdministrationService.Services.Services;
 using Common.Auth;
 using Common.Infrastructure.Swagger;
 using Common.Persistence.Repositories;
-using Common.Domain.Models;
 using Common.Domain.Interfaces.Persistence;
-using AdministrationService.Services.Interfaces;
-using AdministrationService.Services.Services;
 using Common.Persistence.Contexts;
-using Microsoft.EntityFrameworkCore;
 
 namespace AdministrationService.Api
 {
@@ -41,9 +40,9 @@ namespace AdministrationService.Api
 
             services.AddDbContext<ApplicationContext>(options => options.UseInMemoryDatabase(databaseName: "ApplicationDb"));
 
-            services.AddTransient<IRepository<Group>, GroupRepository>();
-            services.AddTransient<IRepository<Subject>, SubjectRepository>();
-            services.AddTransient<IAdministationDiaryService, AdministrationDiaryService>();
+            services.AddTransient<IGroupRepository, GroupRepository>();
+            services.AddTransient<ISubjectRepository, SubjectRepository>();
+            services.AddTransient<IAdministrationDiaryService, AdministrationDiaryService>();
 
             services.AddJwtAuthentication();
         }
@@ -55,6 +54,13 @@ namespace AdministrationService.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(c =>
+            {
+                c.AllowAnyHeader();
+                c.AllowAnyMethod();
+                c.AllowAnyOrigin();
+            });
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

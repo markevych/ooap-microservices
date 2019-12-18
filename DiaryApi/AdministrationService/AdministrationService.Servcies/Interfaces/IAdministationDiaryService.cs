@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 using Common.Domain.Models;
-using Common.Persistence.Repositories;
 
 
 namespace AdministrationService.Services.Interfaces
 {
-    public interface IAdministationDiaryService
+    public interface IAdministrationDiaryService
     {
-        void CreateSubjectForGroup(int groupId, Subject subject);
+        void CreateSubjectForGroup(int groupId, int subjectId, int teacherId);
         void RemoveSubject(int subjectId);
         Subject GetSubject(int subjectId);
         void UpdateSubject(int subjectId, Subject updatedSubject);

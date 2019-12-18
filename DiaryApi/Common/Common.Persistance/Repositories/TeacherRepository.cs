@@ -4,9 +4,9 @@ using Common.Persistence.Contexts;
 
 namespace Common.Persistence.Repositories
 {
-    public class GroupRepository : GenericRepository<Group>, IGroupRepository
+    public class TeacherRepository : GenericRepository<Teacher>, ITeacherRepository
     {
-        public GroupRepository(ApplicationContext context) : base(context)
+        public TeacherRepository(ApplicationContext context) : base(context)
         {
         }
     }

@@ -7,7 +7,7 @@ namespace Common.Domain.Models
         public int Id { get; set; }
         public string GroupName { get; set; }
 
-        public List<Subject> Subjects { get; set; }
-        public List<GroupSubject> GroupSubject { get; set; }
+        public List<TeacherSubject> TeacherSubjects { get; set; }
+        public List<Student> Students { get; set; }
     }
 }
