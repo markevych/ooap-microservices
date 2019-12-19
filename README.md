@@ -42,7 +42,7 @@ The main gore of this task is to create report in pdf format for each user and s
 As data storage will be used Azure sql database (that provide convenient way to configure this and other important stuff like authentication and failover)
 
 ### ER diagram
-###### (https://dbdiagram.io/d/5db1756802e6e93440f295c2)
+###### (https://dbdiagram.io/d/5dfb591aedf08a25543f4085)
 
 ![GitHub Logo](/images/er-diagram.png)
 
