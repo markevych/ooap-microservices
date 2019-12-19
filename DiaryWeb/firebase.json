@@ -1,11 +1,11 @@
 {
-    "hosting": {
-      "public": "dist/diary-api",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ]
-    }
+  "hosting": {
+    "site": "diary-api",
+    "public": "dist/DiaryWeb",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
 }
-  
