@@ -28,7 +28,6 @@ namespace DiaryService.Services
 
         public List<StudentResult> GetStudentResults(int userId)
         {
-            var st = _studentRepository.Get();
             var student = _studentRepository
                 .Get(s => s.UserId == userId)
                 .FirstOrDefault();

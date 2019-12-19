@@ -29,20 +29,16 @@ export class ResultsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.user = this.userService.getUserFromLocalStorage();
-    this.uploadResults();
+    // this.uploadResults();
 
     this.items = [
-      {label: 'Stats', icon: 'fa fa-fw fa-bar-chart'},
-      {label: 'Calendar', icon: 'fa fa-fw fa-calendar'},
-      {label: 'Documentation', icon: 'fa fa-fw fa-book'},
-      {label: 'Support', icon: 'fa fa-fw fa-support'},
-      {label: 'Social', icon: 'fa fa-fw fa-twitter'}
+      {label: 'OOAP', icon: 'fa fa-fw fa-bar-chart'},
+      {label: 'Mathematical analysis', icon: 'fa fa-fw fa-book'},
     ];
 
-      this.activeItem = this.items[2];
+      this.activeItem = this.items[0];
 
-      let date: Date = new Date(Date.now());
-      this.cars = this.carService.buildTestData(date);
+      this.cars = this.carService.getCarsSmall();
       this.carItems = Object.keys(this.cars[0]);
   }
 
@@ -55,7 +51,5 @@ export class ResultsComponent implements OnInit {
   }
 
   private rebuildMenuItems(): void {
-    this.items = [];
-    this.carItems = Object.keys(this.results[0]);
   }
 }

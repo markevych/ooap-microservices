@@ -7,22 +7,20 @@ export interface Car {
     brand;
     color;
   }
-  
+
 @Injectable({
     providedIn: 'root'
 })
 export class CarService {
     private data = [
-        {"brand": "Volkswagen", "year": 2012, "color": "White", "vin": "dsad231ff"},
-        {"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"},
-        {"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"},
-        {"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"},
-        {"brand": "Mercedes", "year": 1995, "color": "White", "vin": "hrtwy34"},
-        {"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"},
-        {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"},
-        {"brand": "Jaguar", "year": 2013, "color": "White", "vin": "greg34"},
-        {"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"},
-        {"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"}
+        {"Student": "Klymenko", "12/18": "4", "12/10": "4", "12/2": "4", "11/25": "4", "11/10": "4" },
+        {"Student": "Haihel", "12/18": "5", "12/10": "-", "12/2": "4", "11/25": "4", "11/10": "4" },
+        {"Student": "Markevych", "12/18": "4", "12/10": "-", "12/2": "4", "11/25": "4", "11/10": "4" },
+        {"Student": "test", "12/18": "-", "12/10": "3", "12/2": "4", "11/25": "4", "11/10": "4" },
+        {"Student": "test", "12/18": "4", "12/10": "-", "12/2": "4", "11/25": "4", "11/10": "4" },
+        {"Student": "test", "12/18": "-", "12/10": "5", "12/2": "4", "11/25": "4", "11/10": "4" },
+        {"Student": "tset", "12/18": "3", "12/10": "2", "12/2": "4", "11/25": "4", "11/10": "4" },
+        {"Student": "test", "12/18": "2", "12/10": "-", "12/2": "4", "11/25": "4", "11/10": "4" }
     ]
 
     constructor() {}

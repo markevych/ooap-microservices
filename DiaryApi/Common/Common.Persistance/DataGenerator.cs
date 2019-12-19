@@ -31,6 +31,30 @@ namespace Common.Persistence
                 },
                 new User
                 {
+                    Id = 4,
+                    Email = "test1@gmail.com",
+                    FullName = "Markiyan Haihel",
+                    PasswordHash = "password",
+                    UserRole = UserRole.Student
+                },
+                new User
+                {
+                    Id = 5,
+                    Email = "test2@gmail.com",
+                    FullName = "Oleg Markevych",
+                    PasswordHash = "password",
+                    UserRole = UserRole.Student
+                },
+                new User
+                {
+                    Id = 6,
+                    Email = "test3@gmail.com",
+                    FullName = "Test3 Test3",
+                    PasswordHash = "password",
+                    UserRole = UserRole.Student
+                },
+                new User
+                {
                     Id = 2,
                     Email = "test@gmail.com",
                     FullName = "Test Test",
@@ -66,8 +90,35 @@ namespace Common.Persistence
                 ParentEmail = "secret@gmail.com",
                 StudentResults = new List<StudentResult>()
             };
+            var student2 = new Student
+            {
+                Group = group,
+                Id = 2,
+                UserId = 4,
+                GroupId = 1,
+                ParentEmail = "secret@gmail.com",
+                StudentResults = new List<StudentResult>()
+            };
+            var student3 = new Student
+            {
+                Group = group,
+                Id = 3,
+                UserId = 5,
+                GroupId = 1,
+                ParentEmail = "secret@gmail.com",
+                StudentResults = new List<StudentResult>()
+            };
+            var student4 = new Student
+            {
+                Group = group,
+                Id = 4,
+                UserId = 6,
+                GroupId = 1,
+                ParentEmail = "secret@gmail.com",
+                StudentResults = new List<StudentResult>()
+            };
 
-            group.Students.Add(student);
+            group.Students.AddRange(new [] {student, student2, student3, student4});
 
             var teacher = new Teacher
             {

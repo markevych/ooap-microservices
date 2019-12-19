@@ -1,13 +1,13 @@
 <div class="container results-container">
     <div class="ui-g-2">
-        4
+        PMI-53
     </div>
     <div class="ui-g-10">
         <div class="ui-g-12">
             <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
         </div>
         <div class="ui-g-12">
-            <p-table [value]="results">
+            <p-table [value]="cars">
                 <ng-template pTemplate="header">
                     <tr>
                         <th *ngFor="let key of carItems">{{key}}</th>
