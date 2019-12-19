@@ -78,8 +78,3 @@ https://drive.google.com/file/d/1bzj3JdcI_JtgyNcvk5UOwBpkzKb-nvr1/view?usp=shari
 https://drive.google.com/open?id=1GCTE2j69qyVCG4SPrvKxXYaaobR9SR95
 
 ![GitHub Logo](/images/metric-diagram.png)
-
-### Hosted Service
-
-...IN PROGRESS...
-(Application will be deployed to Azure hosting service, UI-part (angular app) will be hosted in Firebase cloud)
