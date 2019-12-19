@@ -73,8 +73,3 @@ https://drive.google.com/file/d/1bzj3JdcI_JtgyNcvk5UOwBpkzKb-nvr1/view?usp=shari
 
 ![GitHub Logo](/images/security-model.png)
 
-### Telemetry & Monitoring model
-
-https://drive.google.com/open?id=1GCTE2j69qyVCG4SPrvKxXYaaobR9SR95
-
-![GitHub Logo](/images/metric-diagram.png)
